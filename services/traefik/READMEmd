@@ -1,0 +1,31 @@
+# Traefik
+_work in progress_
+
+### setup service containers to support traefik
+#### networks
+``` yaml
+networks:
+  proxy:
+    external: true
+```
+#### service
+##### labels
+``` yaml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.paperless.rule=Host(`paperless.home.pi`)"
+      - "traefik.http.routers.paperless.entrypoints=websecure"
+```
+##### networks
+_if multiple servcies are related only attach the `proxy`-network to the service that should be exposed_
+``` yaml
+    networks:
+      - proxy
+      - default
+```
+
+---
+
+##### todo
+- handle certs via letsencrypt
+- add my public domain.

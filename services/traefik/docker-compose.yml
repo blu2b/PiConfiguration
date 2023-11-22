@@ -1,0 +1,37 @@
+services:
+  traefik:
+    image: traefik:v2.10.5
+    container_name: traefik
+    restart: always
+    command:
+      - "--api.insecure=true" # insecure WebUi access
+      # provider
+      - "--providers.docker" # enabling docker provider
+      - "--providers.docker.exposedByDefault=false" # toggle default container exposing
+      # entrypoints
+        ## http
+      - "--entrypoints.http.address=:80" # (hostname):port to listen for incoming connections (UDP/TCP)
+      - "--entrypoints.http.http.redirections.entrypoint.to=websecure" # redirect http (SNI support)
+      - "--entrypoints.http.http.redirections.entrypoint.scheme=websecure"
+        ## websecure
+      - "--entrypoints.websecure.address=:443" # (hostname):port to listen for incoming connections (UDP/TCP)
+      - "--entrypoints.websecure.http.tls=true"
+      - "--entrypoints.websecure.http.tls.certresolver=le" # resolve for every container ("traefik.http.routers.https.tls.certresolver=le")
+      # certificate resolver
+        # Use the TLS-ALPN-01 challenge to generate and renew ACME certificates by provisioning a TLS certificate
+        # (when using the TLS-ALPN-01 challenge, Traefik must be reachable by Let's Encrypt through port 443)
+      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      - "--certificatesresolvers.le.acme.email=EXAMPLE@MAIL.COM"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json" # ACME certs storing location
+    ports:
+      - "80:80" # HTTP port
+      - "443:443"
+      - "8080:8080" # api and dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - proxy
+networks:
+  proxy:
+    name: proxy
