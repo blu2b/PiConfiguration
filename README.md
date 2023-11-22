@@ -7,7 +7,6 @@ A simple setup to have some services running in my local network.
 | Service           | Brief description |
 | -                 | - |
 | Docker            | provider to easliy host services |
-| Docker            | provider to easliy host services |
 | Docker Compose    | manage docker container |
 | Portainer         | manage docker container with a WebUI |
 | AdGuardHome       | mainly used as local DNS server (might switch to bind9) |
