@@ -1,17 +1,28 @@
 # PiConfiguration
-Current RaspberryPi setup with docker stack and compose files.
-
 A simple setup to have some services running in my local network.
 
-OS: DietPi
-DNS handling via AdguardHome (might switch to bind9 in the future)
-using docker as provider with the following containers:
-- portainer (manage docker containers)
-- traefik (reverse proxy to get rid of memorising ports)
-- HomeAssistant (easily control all ZigBee devices from one dashboard)
-- Paperless (manage documents properly)
-- Mealie (userfriendly way to store my cooking recipes)
-- Photoprism (mange photos properly)
-- standard notes (secure and encrypted notes)
-- chevereto (hosting images myself)
-- linkwarden (more powerful way of bookmarking websites)
+### Operating System: DietPi
+
+### services diretly running on the system
+| Service           | Brief description |
+| -                 | - |
+| Docker            | provider to easliy host services |
+| Docker            | provider to easliy host services |
+| Docker Compose    | manage docker container |
+| Portainer         | manage docker container with a WebUI |
+| AdGuardHome       | mainly used as local DNS server (might switch to bind9) |
+| Unbound           | recursive DNS |
+| Dropbear          | lightweight ssh server |
+
+### docker container
+| Service           | Brief description |
+| -                 | - |
+| Portainer         | manage docker containers |
+| Traefik           | reverse proxy to get rid of memorising ports |
+| HomeAssistant     | easily control all ZigBee devices from one dashboard |
+| Paperless ngx     | manage documents properly |
+| Mealie            | userfriendly way to store my cooking recipes |
+| Photoprism        | mange photos properly |
+| Standard notes    | secure and encrypted notes |
+| Chevereto         | hosting images myself |
+| Linkwarden        | more powerful way of bookmarking websites |
